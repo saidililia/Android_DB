@@ -34,19 +34,21 @@ class DBObject(context:Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 
       fun  addRecord(db:SQLiteDatabase?, data:DataTO): Boolean {
           val w=this.writableDatabase
 
-           val values = ContentValues()
-          values.put(Humidity, data.humidity)
-          values.put(Temperature, data.temperature)
-          values.put(Date, data.date.toString())
-          values.put(longitude, data.long)
-          values.put(latitude, data.latit)
+          val values = ContentValues().also { it: ContentValues ->
+              it.put(Humidity, data.humidity)
+              it.put(Temperature, data.temperature)
+              it.put(Date, data.date.toString())
+              it.put(longitude, data.long)
+              it.put(latitude, data.latit)
+          }
 
           val success = db?.insert("sensors", null, values)
           db?.close()
           Log.v("InsertedID", "$success")
           return (Integer.parseInt("$success") != -1)
       }
-      fun Delete_ALL(db:SQLiteDatabase?):Boolean {
+
+      fun Delete_All(db:SQLiteDatabase?):Boolean {
           val d = this.writableDatabase;
           val del = db?.delete(TABLE_NAME, null, null)
           db?.close()

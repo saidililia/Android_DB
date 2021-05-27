@@ -12,6 +12,6 @@ class DataTO {
   var latit: Float = 0.0f
 
   @RequiresApi(Build.VERSION_CODES.O)
-  var date = LocalDateTime.now()
+  var date: LocalDateTime = LocalDateTime.now()
   var id:Int = 0
 }
